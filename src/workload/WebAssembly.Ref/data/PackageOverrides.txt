@@ -1,0 +1,1 @@
+WebAssemblySharp|1.0

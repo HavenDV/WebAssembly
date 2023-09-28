@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.Build.NoTargets/3.7.0">
+
+  <PropertyGroup>
+    <Description>Templates for WebAssembly platforms.</Description>
+    <PackageTags>webassembly;sdk;templates;template</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="webassembly/**" Pack="true" PackagePath="content/webassembly" />
+  </ItemGroup>
+
+</Project>

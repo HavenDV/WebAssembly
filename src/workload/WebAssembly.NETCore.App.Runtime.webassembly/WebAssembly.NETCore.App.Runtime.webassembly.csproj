@@ -1,0 +1,20 @@
+<!--
+***********************************************************************************************
+WebAssembly.NETCore.App.Runtime.csproj
+
+This project file is used to create the WebAssembly.NETCore.App.Runtime.**RID** NuGet.
+***********************************************************************************************
+-->
+<Project Sdk="Microsoft.Build.NoTargets/3.7.0">
+
+  <PropertyGroup>
+    <Description>Internal implementation package not meant for direct consumption. Please do not reference directly.</Description>
+    <PackageTags>webassembly;sdk;runtime</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="data/**" Pack="true" PackagePath="data" />
+    <None Include="lib/**" Pack="true" PackagePath="lib" />
+  </ItemGroup>
+
+</Project>

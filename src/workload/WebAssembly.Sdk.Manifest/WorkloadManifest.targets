@@ -1,0 +1,9 @@
+<Project>
+  
+  <Import Project="Sdk.targets" Sdk="WebAssembly.Sdk" Condition="'$(TargetPlatformIdentifier)' == 'webassembly'" />
+
+  <ItemGroup Condition=" '$(TargetFrameworkIdentifier)' == '.NETCoreApp' and $([MSBuild]::VersionGreaterThanOrEquals($(TargetFrameworkVersion), '6.0')) ">
+    <SdkSupportedTargetPlatformIdentifier Include="webassembly" DisplayName="WebAssembly" />
+  </ItemGroup>
+  
+</Project>
