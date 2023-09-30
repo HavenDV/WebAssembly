@@ -5,9 +5,7 @@
       "description": ".NET SDK Workload for building WebAssembly applications.",
       "packs": [
         "WebAssembly.Sdk",
-        "WebAssembly.Ref",
-        "WebAssembly.Templates",
-        "WebAssembly.NETCore.App.Runtime.webassembly"
+        "WebAssembly.Templates"
       ]
     }
   },
@@ -16,16 +14,8 @@
       "kind": "sdk",
       "version": "@WEBASSEMBLY_WORKLOAD_VERSION@"
     },
-    "WebAssembly.Ref": {
-      "kind": "framework",
-      "version": "@WEBASSEMBLY_WORKLOAD_VERSION@"
-    },
     "WebAssembly.Templates": {
       "kind": "template",
-      "version": "@WEBASSEMBLY_WORKLOAD_VERSION@"
-    },
-    "WebAssembly.NETCore.App.Runtime.webassembly": {
-      "kind": "framework",
       "version": "@WEBASSEMBLY_WORKLOAD_VERSION@"
     }
   }
