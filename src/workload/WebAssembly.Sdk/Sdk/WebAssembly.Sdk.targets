@@ -1,0 +1,10 @@
+<Project>
+
+	<PropertyGroup>
+		<AfterMicrosoftNETSdkTargets>$(AfterMicrosoftNETSdkTargets);$(MSBuildThisFileDirectory)WebAssembly.Sdk.After.targets</AfterMicrosoftNETSdkTargets>
+	</PropertyGroup>
+
+  <Import Project="WebAssembly.Sdk.Versions.targets" />
+  <Import Project="WebAssembly.Sdk.DefaultProperties.targets" />
+
+</Project>

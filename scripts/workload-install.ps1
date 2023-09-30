@@ -19,6 +19,7 @@ param(
     [Alias('v')][string]$Version="<latest>",
     [Alias('d')][string]$DotnetInstallDir="<auto>",
     [Alias('t')][string]$DotnetTargetVersionBand="<auto>",
+    [Alias('s')][string]$Source="<auto>",
     [Alias('u')][switch]$UpdateAllWorkloads
 )
 
@@ -63,19 +64,26 @@ function Get-LatestVersion([string]$Id) {
         $attempts--
         if ($attempts -gt 0) { Start-Sleep $sleepInSeconds }
     } while ($attempts -gt 0)
-
-    Write-Error "Wrong Id: $Id"
+    
+    return "0.1.0"
 }
 
-function Get-Package([string]$Id, [string]$Version, [string]$Destination, [string]$FileExt = "nupkg") {
+function Get-Package([string]$Id, [string]$Version, [string]$Destination, [string]$Source = "", [string]$FileExt = "nupkg") {
     $OutFileName = "$Id.$Version.$FileExt"
     $OutFilePath = Join-Path -Path $Destination -ChildPath $OutFileName
-    Invoke-WebRequest -Uri "https://www.nuget.org/api/v2/package/$Id/$Version" -OutFile $OutFilePath
+    
+    if ($Source -eq "<auto>") {
+        Invoke-WebRequest -Uri "https://www.nuget.org/api/v2/package/$Id/$Version" -OutFile $OutFilePath
+    }
+    else {
+        Copy-Item "$Source/$Id.$Version.nupkg" -Destination $OutFilePath
+    }
+    
     return $OutFilePath
 }
 
-function Install-Pack([string]$Id, [string]$Version, [string]$Kind) {
-    $TempZipFile = $(Get-Package -Id $Id -Version $Version -Destination $TempDir -FileExt "zip")
+function Install-Pack([string]$Id, [string]$Version, [string]$Kind, [string]$Source) {
+    $TempZipFile = $(Get-Package -Id $Id -Version $Version -Destination $TempDir -Source $Source -FileExt "zip")
     $TempUnzipDir = Join-Path -Path $TempDir -ChildPath "unzipped\$Id"
 
     switch ($Kind) {
@@ -115,7 +123,7 @@ function Remove-Pack([string]$Id, [string]$Version, [string]$Kind) {
     }
 }
 
-function Install-WebAssemblyWorkload([string]$DotnetVersion)
+function Install-WebAssemblyWorkload([string]$DotnetVersion, [string]$Source)
 {
     $VersionSplitSymbol = '.'
     $SplitVersion = $DotnetVersion.Split($VersionSplitSymbol)
@@ -148,7 +156,7 @@ function Install-WebAssemblyWorkload([string]$DotnetVersion)
 
     # Check workload manifest directory.
     $ManifestDir = Join-Path -Path $DotnetInstallDir -ChildPath "sdk-manifests" | Join-Path -ChildPath $DotnetTargetVersionBand
-    $WebAssemblyManifestDir = Join-Path -Path $ManifestDir -ChildPath "net.sdk.webassembly"
+    $WebAssemblyManifestDir = Join-Path -Path $ManifestDir -ChildPath "webassembly.sdk.manifest"
     $WebAssemblyManifestFile = Join-Path -Path $WebAssemblyManifestDir -ChildPath "WorkloadManifest.json"
 
     # Check and remove already installed old version.
@@ -178,13 +186,13 @@ function Install-WebAssemblyWorkload([string]$DotnetVersion)
 
     # Install workload manifest.
     Write-Host "Installing $ManifestName/$Version to $ManifestDir..."
-    Install-Pack -Id $ManifestName -Version $Version -Kind "manifest"
+    Install-Pack -Id $ManifestName -Version $Version -Kind "manifest" -Source $Source
 
     # Download and install workload packs.
     $NewManifestJson = $(Get-Content $WebAssemblyManifestFile | ConvertFrom-Json)
     $NewManifestJson.packs.PSObject.Properties | ForEach-Object {
         Write-Host "Installing $($_.Name)/$($_.Value.version)..."
-        Install-Pack -Id $_.Name -Version $_.Value.version -Kind $_.Value.kind
+        Install-Pack -Id $_.Name -Version $_.Value.version -Kind $_.Value.kind -Source $Source
     }
 
     # Add webassembly to the installed workload metadata.
@@ -241,7 +249,7 @@ else
     {
         try {
             Write-Host "`nCheck WebAssembly Workload for sdk $DotnetSdk"
-            Install-WebAssemblyWorkload -DotnetVersion $DotnetSdk
+            Install-WebAssemblyWorkload -DotnetVersion $DotnetSdk -Source $Source
         }
         catch {
             Write-Host "Failed to install WebAssembly Workload for sdk $DotnetSdk"

@@ -1,0 +1,8 @@
+<Project>
+
+  <PropertyGroup>
+    <_IsWebAssemblyDefined>$([System.Text.RegularExpressions.Regex]::IsMatch('$(DefineConstants.Trim())', '(^|;)__WEBASSEMBLY__($|;)'))</_IsWebAssemblyDefined>
+    <DefineConstants Condition="!$(_IsWebAssemblyDefined)">__WEBASSEMBLY__;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+</Project>

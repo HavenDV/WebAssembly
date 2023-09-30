@@ -1,0 +1,10 @@
+<Project>
+
+  <PropertyGroup>
+    <EnableDefaultWebAssemblyItems Condition="'$(EnableDefaultWebAssemblyItems)' == ''">$(EnableDefaultItems)</EnableDefaultWebAssemblyItems>
+  </PropertyGroup>
+
+  <Import Project="WebAssembly.Sdk.Common.targets" />
+  <Import Project="WebAssembly.Sdk.NuGet.targets" Condition=" '$(MSBuildRuntimeType)' == 'Full' and '$(MSBuildVersion)' &lt; '17.0' " />
+
+</Project>
