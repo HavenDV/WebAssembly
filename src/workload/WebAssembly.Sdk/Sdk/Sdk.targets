@@ -1,5 +1,5 @@
 <Project>
 
-  <Import Project="$(MSBuildThisFileDirectory)..\targets\WebAssembly.Sdk.targets"  />
+  <Import Project="$(MSBuildThisFileDirectory)WebAssembly.Sdk.targets"  />
 
 </Project>
