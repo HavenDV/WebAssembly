@@ -5,7 +5,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageType>DotnetPlatform</PackageType>
     <GenerateDependencyFile>false</GenerateDependencyFile>
-    <PackageOutputPath>$(MSBuildThisFileDirectory)../../out/nuget-unsigned/</PackageOutputPath>
+    <PackageOutputPath>$(MSBuildThisFileDirectory)../../artifacts/nuget/</PackageOutputPath>
     <!-- Remove the `<group targetFramework=".NETStandard2.0" />` entry from the .nuspec. -->
     <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
     <IncludeSymbols>false</IncludeSymbols>

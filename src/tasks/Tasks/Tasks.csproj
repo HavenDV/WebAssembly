@@ -13,12 +13,12 @@
 
   <PropertyGroup Label="Paths">
     <SolutionDir>$(MSBuildThisFileDirectory)../../../</SolutionDir>
-    <OutDir>$(SolutionDir)out/</OutDir>
+    <ArtifactsDir>$(SolutionDir)artifacts/</ArtifactsDir>
     <TmpDir>$(SolutionDir).tmp/</TmpDir>
     <TestDir>$(TmpDir)test/</TestDir>
     <WorkloadDir>$(SolutionDir)src/workload/</WorkloadDir>
-    <WorkloadPacksOutDir>$(OutDir)nuget-unsigned/</WorkloadPacksOutDir>
-    <DotnetDestDir>$(OutDir)dotnet/</DotnetDestDir>
+    <PackagesDir>$(ArtifactsDir)nuget/</PackagesDir>
+    <DotnetDestDir>$(ArtifactsDir)dotnet/</DotnetDestDir>
     <DotnetDefaultPathLinux>/usr/share/dotnet/</DotnetDefaultPathLinux>
     <DotnetDefaultPathMacOS>/usr/local/share/dotnet/</DotnetDefaultPathMacOS>
     <DotnetDestDir Condition="'$(UseCurrentDotnet)' == 'true' and $([MSBuild]::IsOSPlatform('Linux'))">$(DotnetDefaultPathLinux)</DotnetDestDir>
@@ -60,11 +60,11 @@
   <Target Name="WorkloadInstall" DependsOnTargets="DotnetInstall;BuildPackages">
     <ItemGroup>
       <_SourceFiles Include="$(WorkloadDir)WebAssembly.Sdk.Manifest/WorkloadManifest.targets"/>
-      <_SourceFiles Include="$(WorkloadPacksOutDir)workload-manifest/WorkloadManifest.json"/>
+      <_SourceFiles Include="$(ArtifactsDir)workload-manifest/WorkloadManifest.json"/>
     </ItemGroup>
 
     <Copy SourceFiles="@(_SourceFiles)" DestinationFolder="$(DotnetManifestsDestDir)"/>
-    <Exec Command="$(DotnetExe) workload install webassembly --skip-manifest-update --source $(WorkloadPacksOutDir) --temp-dir=$(TmpDir)" ConsoleToMSBuild="true"/>
+    <Exec Command="$(DotnetExe) workload install webassembly --skip-manifest-update --source $(PackagesDir) --temp-dir=$(TmpDir)" ConsoleToMSBuild="true"/>
   </Target>
 
   <Target Name="WorkloadUninstall">
@@ -79,7 +79,7 @@
   </Target>
 
   <Target Name="CleanArtifactsAndTemporaryFiles">
-    <RemoveDir Directories="$(OutDir)" />
+    <RemoveDir Directories="$(ArtifactsDir)" />
     <RemoveDir Directories="$(TmpDir)" />
   </Target>
 

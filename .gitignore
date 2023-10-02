@@ -397,10 +397,3 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /.idea/
-
-.nuspec/**/*.dll
-.nuspec/**/*.dylib
-.nuspec/**/*.so
-.XamarinFormsVersionFile.txt
-templatesTest/
-out
