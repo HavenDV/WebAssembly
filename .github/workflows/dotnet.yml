@@ -33,9 +33,9 @@ jobs:
       matrix:
         os: [macos, ubuntu, windows]
         dotnet: [
-          { version: 6.0.x, quality: ga },
-          { version: 7.0.x, quality: ga },
-          { version: 8.0.x, quality: preview }
+          #{ version: 6.0.x, quality: ga },
+          #{ version: 7.0.x, quality: ga },
+          { version: 8.0.x, quality: ga }
         ]
         source: [nuget, local]
         template: [webassembly]

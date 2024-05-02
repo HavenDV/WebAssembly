@@ -1,9 +1,13 @@
 <Project>
   
   <Import Project="Sdk.targets" Sdk="WebAssembly.Sdk" Condition="'$(TargetPlatformIdentifier)' == 'webassembly'" />
+  <Import Project="Sdk.targets" Sdk="WebAssembly.Sdk" Condition="'$(TargetPlatformIdentifier)' == 'browserwasm'" />
+  <Import Project="Sdk.targets" Sdk="WebAssembly.Sdk" Condition="'$(TargetPlatformIdentifier)' == 'desktop'" />
 
   <ItemGroup Condition=" '$(TargetFrameworkIdentifier)' == '.NETCoreApp' and $([MSBuild]::VersionGreaterThanOrEquals($(TargetFrameworkVersion), '6.0')) ">
     <SdkSupportedTargetPlatformIdentifier Include="webassembly" DisplayName="WebAssembly" />
+    <SdkSupportedTargetPlatformIdentifier Include="browserwasm" DisplayName="BrowserWasm" />
+    <SdkSupportedTargetPlatformIdentifier Include="desktop" DisplayName="Desktop" />
   </ItemGroup>
   
 </Project>

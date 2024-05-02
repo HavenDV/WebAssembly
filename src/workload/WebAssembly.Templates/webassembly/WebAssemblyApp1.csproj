@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   
   <PropertyGroup>
-    <TargetFramework>net6.0-webassembly</TargetFramework>
+    <TargetFrameworks>net8.0-webassembly;net8.0-browserwasm;net8.0-desktop</TargetFrameworks>
     <RootNamespace Condition="'$(name)' != '$(name{-VALUE-FORMS-}safe_namespace)'">WebAssemblyApp1</RootNamespace>
     <OutputType>Exe</OutputType>
     <ImplicitUsings>true</ImplicitUsings>

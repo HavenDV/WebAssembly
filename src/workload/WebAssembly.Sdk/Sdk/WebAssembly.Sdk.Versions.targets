@@ -7,12 +7,16 @@
   <PropertyGroup>
     <TargetPlatformSupported>true</TargetPlatformSupported>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">$(_DefaultTargetPlatformVersion)</TargetPlatformVersion>
-    <_TargetFramework Condition="$(TargetFramework.EndsWith('webassembly'))">$(TargetFramework)$(_DefaultTargetPlatformVersion)</_TargetFramework>
-    <_TargetFramework Condition="!$(TargetFramework.EndsWith('webassembly'))">$(TargetFramework)</_TargetFramework>
+    <_IsWebAssemblyTargetFramework>false</_IsWebAssemblyTargetFramework>
+    <_IsWebAssemblyTargetFramework Condition="$(TargetFramework.EndsWith('webassembly')) OR $(TargetFramework.EndsWith('browserwasm')) OR $(TargetFramework.EndsWith('desktop'))">true</_IsWebAssemblyTargetFramework>
+    <_TargetFramework Condition="'$(_IsWebAssemblyTargetFramework)' == 'true'">$(TargetFramework)$(_DefaultTargetPlatformVersion)</_TargetFramework>
+    <_TargetFramework Condition="'$(_IsWebAssemblyTargetFramework)' != 'true'">$(TargetFramework)</_TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <SupportedPlatform Include="webassembly" />
+    <SupportedPlatform Include="browserwasm" />
+    <SupportedPlatform Include="desktop" />
   </ItemGroup>
 
   <ItemGroup>

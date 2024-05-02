@@ -4,10 +4,10 @@
 [![License: MIT](https://img.shields.io/github/license/HavenDV/WebAssembly)](https://github.com/HavenDV/WebAssembly/blob/main/LICENSE.txt)
 [![Discord](https://img.shields.io/discord/1115206893015662663?label=Discord&logo=discord&logoColor=white&color=d82679)](https://discord.gg/Ca2xhfBf3v)
 
-<b>WebAssembly</b> is separate TPM for developing WebAssembly applications within a single project, if there are other TargetFrameworks using the main `net7.0` TPM.
+<b>WebAssembly</b> is separate TPM for developing WebAssembly applications within a single project, if there are other TargetFrameworks using the main `net8.0` TPM.
 
 ## Usage
-Just install and add `net7.0-webassembly` to `TargetFrameworks`.
+Just install and add `net8.0-webassembly` to `TargetFrameworks`.
 
 ## Install
 You can install WebAssembly workload for .NET 6.0/7.0/8.0 by using the installer script.
