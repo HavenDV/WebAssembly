@@ -135,16 +135,16 @@ function install_webassemblyworkload() {
 
     # Check latest version of manifest.
     if [[ "$MANIFEST_VERSION" == "<latest>" ]]; then
-        MANIFEST_VERSION="0.2.0"
-        if [ ! "$MANIFEST_VERSION" ]; then
-            MANIFEST_VERSION=$(curl -s https://api.nuget.org/v3-flatcontainer/$MANIFEST_NAME/index.json | grep \" | tail -n 1 | tr -d '\r' | xargs)
-            if [[ -n $MANIFEST_VERSION ]]; then
-                echo "Return cached latest version: $MANIFEST_VERSION"
-            else
-                echo "Failed to get the latest version of $MANIFEST_NAME."
-                return
-            fi
-        fi
+        MANIFEST_VERSION="0.3.0"
+#        if [ ! "$MANIFEST_VERSION" ]; then
+#            MANIFEST_VERSION=$(curl -s https://api.nuget.org/v3-flatcontainer/$MANIFEST_NAME/index.json | grep \" | tail -n 1 | tr -d '\r' | xargs)
+#            if [[ -n $MANIFEST_VERSION ]]; then
+#                echo "Return cached latest version: $MANIFEST_VERSION"
+#            else
+#                echo "Failed to get the latest version of $MANIFEST_NAME."
+#                return
+#            fi
+#        fi
     fi
 
     # Check workload manifest directory.
